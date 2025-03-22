@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>FREE CARRIER CONSENT</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
+</head>
+
+<body>
+
+	<div class="wrapper">
+		<form action="" method="POST" name="google-sheet" class="form">
+			<h1>Free Carrier Consent</h1>
+
+			<div class="input-box">
+
+				<div class="input-feild">
+					<input type="text" placeholder="Student Name" required name="Student Name">
+					<i class='bx bxs-user'></i>
+				</div>
+
+				<div class="input-feild">
+					<input type="text" placeholder="Your Number" required name="Student No">
+					<i class='bx bxs-phone'></i>
+				</div>
+
+			</div>
+
+			<div class="input-box">
+				<div class="input-feild">
+					<input type="text" placeholder="Mother/Father's Name" required name="Parent Name">
+					<i class='bx bxs-user'></i>
+				</div>
+
+				<div class="input-feild">
+					<input type="text" placeholder="Parent's Number" required name="Parent No">
+					<i class='bx bxs-phone'></i>
+				</div>
+
+			</div>
+
+			<div class="input-box">
+				<div class="input-feild">
+					<input type="text" placeholder="Address" required name="Address">
+					<i class='bx bx-current-location'></i>
+				</div>
+
+				<div class="input-feild">
+					<input type="text" placeholder="College Name" required name="College Name">
+					<i class='bx bxs-buildings'></i>
+				</div>
+
+			</div>
+
+			<div class="input-box">
+				<div class="input-feild">
+					<input type="text" placeholder="Stream" required name="Stream">
+					<i class='bx bx-list-ol'></i>
+				</div>
+
+				<div class="input-feild">
+					<input type="text" placeholder="Future Aim" required name="Future Aim">
+					<i class='bx bxs-graduation'></i>
+				</div>
+
+			</div>
+
+			<input type="submit" value="Reigster" class="btn" name="submit">
+
+
+		</form>
+	</div>	
+	
+	
+	<script>
+		const scriptURL = 'https://script.google.com/macros/s/AKfycbzDkIErkv7QbV_PH-KZghYReANolZ6krNHzTPw2Sq_n27eDr962XPaGg2NHmBDCMsYO/exec'
+		const form = document.forms['google-sheet']
+	  
+		form.addEventListener('submit', e => {
+		  e.preventDefault()
+		  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+			.then(response => alert("Thanks for Contacting us..! We Will Contact You Soon..."))
+			.catch(error => console.error('Error!', error.message))
+		})
+	  </script>
+
+
+</body>
+
+</html>
+
