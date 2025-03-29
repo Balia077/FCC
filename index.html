@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
     <style>
-        /* Hide the up/down arrows in number inputs */
+        /* Hide up/down arrows in number inputs */
         input[type=number]::-webkit-outer-spin-button,
         input[type=number]::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -15,7 +15,6 @@
         }
         input[type=number] {
             -moz-appearance: textfield;
-            appearance: textfield;
         }
 
         /* Success message styling */
@@ -32,7 +31,7 @@
             text-align: center;
             border-radius: 8px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.3s ease-in-out;
         }
 
         @keyframes fadeIn {
@@ -51,7 +50,7 @@
 <body>
 
     <div class="wrapper">
-        <form action="" method="POST" name="google-sheet" class="form">
+        <form name="google-sheet" class="form">
             <h1>Free Carrier Consent</h1>
 
             <div class="input-box">
@@ -61,7 +60,7 @@
                 </div>
 
                 <div class="input-feild">
-                    <input type="number" placeholder="Your Number" required name="student_no" pattern="\d{10}">
+                    <input type="number" placeholder="Your Number" required name="student_no">
                     <i class='bx bxs-phone'></i>
                 </div>
             </div>
@@ -73,7 +72,7 @@
                 </div>
 
                 <div class="input-feild">
-                    <input type="number" placeholder="Parent's Number" required name="parent_no" pattern="\d{10}">
+                    <input type="number" placeholder="Parent's Number" required name="parent_no">
                     <i class='bx bxs-phone'></i>
                 </div>
             </div>
@@ -108,7 +107,7 @@
 
     <!-- Success Message Popup -->
     <div class="success-message" id="success-message">
-        🎉 Successfully Registered! Redirecting...
+        🎉 Successfully Registered!
     </div>
 
     <script>
@@ -118,14 +117,19 @@
 
         form.addEventListener('submit', e => {
             e.preventDefault();
-            
-            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+
+            // Capture form data
+            const formData = new FormData(form);
+
+            // Submit data to Google Apps Script
+            fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
                     successMessage.style.display = 'block'; // Show success message
                     
                     setTimeout(() => {
-                        location.reload(); // Refresh the page after 1 seconds
-                    }, 1000);
+                        successMessage.style.display = 'none'; // Hide success message
+                        form.reset(); // Reset form fields
+                    }, 2500);
                 })
                 .catch(error => console.error('Error!', error.message));
         });
