@@ -111,28 +111,27 @@
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzDkIErkv7QbV_PH-KZghYReANolZ6krNHzTPw2Sq_n27eDr962XPaGg2NHmBDCMsYO/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxvEH4g7_ukmNiV8Zjw0w_J_KPTVqLD7IPzGcQxHVx1sRGkVrfoI3TEmjTC0JYtl1oa/exec'; 
         const form = document.forms['google-sheet'];
-        const successMessage = document.getElementById('success-message');
 
         form.addEventListener('submit', e => {
-            e.preventDefault();
+        e.preventDefault();
+    
+        const formData = new FormData(form);
 
-            // Capture form data
-            const formData = new FormData(form);
+        fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => response.json())
+        .then(data => {
+            if (data.result === "success") {
+                alert("✅ Successfully Registered!");
+                form.reset();
+            } else {
+                alert("❌ Error submitting form: " + data.error);
+            }
+        })
+        .catch(error => console.error('Fetch Error:', error.message));
+    });
 
-            // Submit data to Google Apps Script
-            fetch(scriptURL, { method: 'POST', body: formData })
-                .then(response => {
-                    successMessage.style.display = 'block'; // Show success message
-                    
-                    setTimeout(() => {
-                        successMessage.style.display = 'none'; // Hide success message
-                        form.reset(); // Reset form fields
-                    }, 2500);
-                })
-                .catch(error => console.error('Error!', error.message));
-        });
     </script>
 
 </body>
