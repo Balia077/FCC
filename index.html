@@ -113,25 +113,37 @@
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxvEH4g7_ukmNiV8Zjw0w_J_KPTVqLD7IPzGcQxHVx1sRGkVrfoI3TEmjTC0JYtl1oa/exec'; 
         const form = document.forms['google-sheet'];
+        const successMessage = document.getElementById('success-message');
 
         form.addEventListener('submit', e => {
-        e.preventDefault();
-    
-        const formData = new FormData(form);
+            e.preventDefault();
 
-        fetch(scriptURL, { method: 'POST', body: formData })
-        .then(response => response.json())
-        .then(data => {
-            if (data.result === "success") {
-                alert("✅ Successfully Registered!");
-                form.reset();
-            } else {
-                alert("❌ Error submitting form: " + data.error);
-            }
-        })
-        .catch(error => console.error('Fetch Error:', error.message));
-    });
+            const formData = new FormData(form);
 
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => response.text()) // Convert response to text first
+                .then(text => {
+                    try {
+                        return JSON.parse(text); // Try parsing JSON
+                    } catch (error) {
+                        throw new Error("Invalid JSON response from server.");
+                    }
+                })
+                .then(data => {
+                    if (data.result === "success") {
+                        successMessage.style.display = 'block'; // Show success message
+                        
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                            form.reset(); // Reset form
+                            window.location.reload(); // Refresh page
+                        }, 2500);
+                    } else {
+                        alert("❌ Error submitting form: " + data.error);
+                    }
+                })
+                .catch(error => console.error('Fetch Error:', error.message));
+        });
     </script>
 
 </body>
