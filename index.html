@@ -118,30 +118,31 @@
         form.addEventListener('submit', e => {
             e.preventDefault();
 
-<<<<<<< HEAD
-			</div>
+const formData = new FormData(form);
 
-			<input type="submit" value="Reigster" class="btn" name="submit">
-
-
-		</form>
-	</div>	
-	
-	
-	<script>
-		const scriptURL = 'https://script.google.com/macros/s/AKfycbzJvoGWT0M5_lirOiFkvLcZghdZEoUAsjsm-t2UJdva_4pjwXaeFfIl0woRKwg_VQ9h/exec';
-		const form = document.forms['google-sheet']
-	  
-		form.addEventListener('submit', e => {
-		  e.preventDefault()
-		  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-			.then(response => alert("Thanks for Contacting us..! We Will Contact You Soon..."))
-			.catch(error => console.error('Error!', error.message))
-		})
-	  </script>
-=======
-            const formData = new FormData(form);
->>>>>>> 8b7e5da9d68deb37f9ad4b002afe62e1191a62d1
+fetch(scriptURL, { method: 'POST', body: formData })
+    .then(response => response.text()) // Convert response to text first
+    .then(text => {
+        try {
+            return JSON.parse(text); // Try parsing JSON
+        } catch (error) {
+            throw new Error("Invalid JSON response from server.");
+        }
+    })
+    .then(data => {
+        if (data.result === "success") {
+            successMessage.style.display = 'block'; // Show success message
+            
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+                form.reset(); // Reset form
+                window.location.reload(); // Refresh page
+            }, 1000);
+        } else {
+            alert("❌ Error submitting form: " + data.error);
+        }
+    })
+    .catch(error => console.error('Fetch Error:', error.message));
 
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => response.text()) // Convert response to text first
@@ -160,7 +161,7 @@
                             successMessage.style.display = 'none';
                             form.reset(); // Reset form
                             window.location.reload(); // Refresh page
-                        }, 2500);
+                        }, 1000);
                     } else {
                         alert("❌ Error submitting form: " + data.error);
                     }
