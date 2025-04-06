@@ -116,34 +116,11 @@
         const successMessage = document.getElementById('success-message');
 
         form.addEventListener('submit', e => {
-            e.preventDefault();
+            e.preventDefault(); // Prevent form submission
 
-const formData = new FormData(form);
+            const formData = new FormData(form);
 
-fetch(scriptURL, { method: 'POST', body: formData })
-    .then(response => response.text()) // Convert response to text first
-    .then(text => {
-        try {
-            return JSON.parse(text); // Try parsing JSON
-        } catch (error) {
-            throw new Error("Invalid JSON response from server.");
-        }
-    })
-    .then(data => {
-        if (data.result === "success") {
-            successMessage.style.display = 'block'; // Show success message
-            
-            setTimeout(() => {
-                successMessage.style.display = 'none';
-                form.reset(); // Reset form
-                window.location.reload(); // Refresh page
-            }, 1000);
-        } else {
-            alert("❌ Error submitting form: " + data.error);
-        }
-    })
-    .catch(error => console.error('Fetch Error:', error.message));
-
+            // Send form data to Google Script
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => response.text()) // Convert response to text first
                 .then(text => {
@@ -166,11 +143,9 @@ fetch(scriptURL, { method: 'POST', body: formData })
                         alert("❌ Error submitting form: " + data.error);
                     }
                 })
-                .catch(error => console.error('Fetch Error:', error.message));
+                .catch(error => console.error('Fetch Error:', error.message)); // Handle fetch error
         });
     </script>
 
 </body>
 </html>
-
-
