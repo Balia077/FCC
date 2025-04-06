@@ -111,7 +111,7 @@
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzJvoGWT0M5_lirOiFkvLcZghdZEoUAsjsm-t2UJdva_4pjwXaeFfIl0woRKwg_VQ9h/exec'; 
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzyEcymqEyqLG_81BOZ2CsYrNua8pwlbY08fG7zrHypJUN1D1H0pp1CQWHCrud1TEOF/exec'; 
         const form = document.forms['google-sheet'];
         const successMessage = document.getElementById('success-message');
 
@@ -122,14 +122,7 @@
 
             // Send form data to Google Script
             fetch(scriptURL, { method: 'POST', body: formData })
-                .then(response => response.text()) // Convert response to text first
-                .then(text => {
-                    try {
-                        return JSON.parse(text); // Try parsing JSON
-                    } catch (error) {
-                        throw new Error("Invalid JSON response from server.");
-                    }
-                })
+                .then(response => response.json()) // Ensure response is in JSON format
                 .then(data => {
                     if (data.result === "success") {
                         successMessage.style.display = 'block'; // Show success message
