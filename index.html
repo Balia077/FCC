@@ -1,70 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>FREE CARRIER CONSENT</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FREE CARRIER CONSENT</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
+    <style>
+        /* Hide up/down arrows in number inputs */
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        /* Success message styling */
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-	<div class="wrapper">
-		<form action="" method="POST" name="google-sheet" class="form">
-			<h1>Free Carrier Consent</h1>
+    <div class="wrapper">
+        <form name="google-sheet" class="form">
+            <h1>Free Carrier Consent</h1>
 
-			<div class="input-box">
+            <div class="input-box">
+                <div class="input-feild">
+                    <input type="text" placeholder="Student Name" required name="student_name">
+                    <i class='bx bxs-user'></i>
+                </div>
 
-				<div class="input-feild">
-					<input type="text" placeholder="Student Name" required name="Student Name">
-					<i class='bx bxs-user'></i>
-				</div>
+                <div class="input-feild">
+                    <input type="number" placeholder="Your Number" required name="student_no">
+                    <i class='bx bxs-phone'></i>
+                </div>
+            </div>
 
-				<div class="input-feild">
-					<input type="text" placeholder="Your Number" required name="Student No">
-					<i class='bx bxs-phone'></i>
-				</div>
+            <div class="input-box">
+                <div class="input-feild">
+                    <input type="text" placeholder="Mother/Father's Name" required name="parent_name">
+                    <i class='bx bxs-user'></i>
+                </div>
 
-			</div>
+                <div class="input-feild">
+                    <input type="number" placeholder="Parent's Number" required name="parent_no">
+                    <i class='bx bxs-phone'></i>
+                </div>
+            </div>
 
-			<div class="input-box">
-				<div class="input-feild">
-					<input type="text" placeholder="Mother/Father's Name" required name="Parent Name">
-					<i class='bx bxs-user'></i>
-				</div>
+            <div class="input-box">
+                <div class="input-feild">
+                    <input type="text" placeholder="Address" required name="address">
+                    <i class='bx bx-current-location'></i>
+                </div>
 
-				<div class="input-feild">
-					<input type="text" placeholder="Parent's Number" required name="Parent No">
-					<i class='bx bxs-phone'></i>
-				</div>
+                <div class="input-feild">
+                    <input type="text" placeholder="College Name" required name="college_name">
+                    <i class='bx bxs-buildings'></i>
+                </div>
+            </div>
 
-			</div>
+            <div class="input-box">
+                <div class="input-feild">
+                    <input type="text" placeholder="Stream" required name="stream">
+                    <i class='bx bx-list-ol'></i>
+                </div>
 
-			<div class="input-box">
-				<div class="input-feild">
-					<input type="text" placeholder="Address" required name="Address">
-					<i class='bx bx-current-location'></i>
-				</div>
+                <div class="input-feild">
+                    <input type="text" placeholder="Future Aim" required name="future_aim">
+                    <i class='bx bxs-graduation'></i>
+                </div>
+            </div>
 
-				<div class="input-feild">
-					<input type="text" placeholder="College Name" required name="College Name">
-					<i class='bx bxs-buildings'></i>
-				</div>
+            <input type="submit" value="Register" class="btn" name="submit">
+        </form>
+    </div>  
 
-			</div>
+    <!-- Success Message Popup -->
+    <div class="success-message" id="success-message">
+        🎉 Successfully Registered!
+    </div>
 
-			<div class="input-box">
-				<div class="input-feild">
-					<input type="text" placeholder="Stream" required name="Stream">
-					<i class='bx bx-list-ol'></i>
-				</div>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxvEH4g7_ukmNiV8Zjw0w_J_KPTVqLD7IPzGcQxHVx1sRGkVrfoI3TEmjTC0JYtl1oa/exec'; 
+        const form = document.forms['google-sheet'];
+        const successMessage = document.getElementById('success-message');
 
-				<div class="input-feild">
-					<input type="text" placeholder="Future Aim" required name="Future Aim">
-					<i class='bx bxs-graduation'></i>
-				</div>
+        form.addEventListener('submit', e => {
+            e.preventDefault();
 
+<<<<<<< HEAD
 			</div>
 
 			<input type="submit" value="Reigster" class="btn" name="submit">
@@ -85,9 +139,35 @@
 			.catch(error => console.error('Error!', error.message))
 		})
 	  </script>
+=======
+            const formData = new FormData(form);
+>>>>>>> 8b7e5da9d68deb37f9ad4b002afe62e1191a62d1
 
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => response.text()) // Convert response to text first
+                .then(text => {
+                    try {
+                        return JSON.parse(text); // Try parsing JSON
+                    } catch (error) {
+                        throw new Error("Invalid JSON response from server.");
+                    }
+                })
+                .then(data => {
+                    if (data.result === "success") {
+                        successMessage.style.display = 'block'; // Show success message
+                        
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                            form.reset(); // Reset form
+                            window.location.reload(); // Refresh page
+                        }, 2500);
+                    } else {
+                        alert("❌ Error submitting form: " + data.error);
+                    }
+                })
+                .catch(error => console.error('Fetch Error:', error.message));
+        });
+    </script>
 
 </body>
-
 </html>
-
